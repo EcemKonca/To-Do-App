@@ -29,6 +29,8 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <li>
                 <strong><?php echo htmlspecialchars($task['title']); ?></strong><br>
                 <?php echo htmlspecialchars($task['description']); ?><br>
+                <button onclick="window.location.href='edit_task.php?id=<?php echo $task['id']; ?>'">Edit</button>
+                <button onclick="window.location.href='delete_task.php?id=<?php echo $task['id']; ?>'">Delete</button>
             </li>
         <?php endforeach; ?>
     </ul>

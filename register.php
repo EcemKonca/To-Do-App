@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':password', $password);
 
         if ($stmt->execute()) {
-            header("Location: login.php");
+            header("Location: login.html");
             exit();
         } else {
             echo "Error: " . $stmt->errorInfo()[2];
