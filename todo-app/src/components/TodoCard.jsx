@@ -2,7 +2,7 @@ import React from 'react'
 import { MdCreate, MdDelete } from 'react-icons/md'
 import { FaCheckCircle, FaRegCheckCircle } from 'react-icons/fa'
 
-const TodoCard = ({ title, content, completed, onEdit }) => {
+const TodoCard = ({ title, content, completed, onEdit, onDelete }) => {
   return (
     <div className="todo-card">
       <div>
@@ -21,7 +21,11 @@ const TodoCard = ({ title, content, completed, onEdit }) => {
             size={24}
             onClick={onEdit}
           />
-          <MdDelete className="text-danger cursor-pointer" size={24} />
+          <MdDelete
+            className="text-danger cursor-pointer"
+            size={24}
+            onClick={onDelete}
+          />
         </div>
       </div>
     </div>

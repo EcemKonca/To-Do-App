@@ -1,40 +1,46 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar'
-import { Link, useNavigate } from 'react-router-dom'
-import { validateEmail } from '../../utils/helper'
 
-const Signup = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState(null)
+function Signup() {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log('Sending request...');
+      const response = await fetch('http://localhost/todoapp/api/register.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+      
+      console.log('Response:', response);
 
-  const handleSignup = async (e) => {
-    e.preventDefault()
+      if (!response.ok) {
+        console.error('Network response was not ok');
+        throw new Error('Network response was not ok');
+      }
 
-    if (!name) {
-      setError('Please enter your name')
-      return
+      const data = await response.json();
+      console.log('Response data:', data);
+
+      if (data.message) {
+        navigate('/login'); // Login sayfasına yönlendirin
+      } else {
+        setError(data.error || 'An error occurred. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error caught in catch block:', error);
+      setError('An error occurred. Please try again.');
     }
-
-    if (!validateEmail(email)) {
-      setError('Please enter a valid email address')
-      return
-    }
-
-    if (!password) {
-      setError('Please enter a password')
-      return
-    }
-
-    setError('')
-
-    // Call the signup API here
-
-    navigate('/login')
-  }
+  };
 
   return (
     <>
@@ -42,21 +48,23 @@ const Signup = () => {
       <div className="container mx-auto mt-24">
         <div className="max-w-md mx-auto card">
           <h2 className="text-3xl font-bold text-center">Signup</h2>
-          <form className="mt-6" onSubmit={handleSignup}>
+          <form className="mt-6" onSubmit={handleSubmit}>
             {error && <p className="text-danger text-sm mb-4">{error}</p>}
             <input
               type="text"
-              placeholder="Name"
+              placeholder="Username"
               className="input-box"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
             />
             <input
-              type="text"
+              type="email"
               placeholder="Email"
               className="input-box mt-4"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
             <input
               type="password"
@@ -64,8 +72,8 @@ const Signup = () => {
               className="input-box mt-4"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
-
             <button type="submit" className="button-primary mt-6">
               Signup
             </button>
@@ -79,7 +87,7 @@ const Signup = () => {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Signup
+export default Signup;
