@@ -32,7 +32,7 @@ function Signup() {
       console.log('Response data:', data);
 
       if (data.message) {
-        navigate('/login'); // Login sayfasına yönlendirin
+        navigate('/login'); 
       } else {
         setError(data.error || 'An error occurred. Please try again.');
       }

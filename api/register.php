@@ -8,7 +8,6 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-W
 
 header('Content-Type: application/json');
 
-// Preflight isteklerine boş yanıt döndürün.
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     header("HTTP/1.1 200 OK");
     exit();
@@ -16,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
-    error_log("Received data: " . print_r($data, true)); // Gelen veriyi loglayın
+    error_log("Received data: " . print_r($data, true)); 
 
     if (isset($data['username']) && isset($data['email']) && isset($data['password'])) {
         $username = $data['username'];

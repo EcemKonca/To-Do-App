@@ -10,7 +10,6 @@ header("Access-Control-Allow-Credentials: true");
 
 header('Content-Type: application/json');
 
-// Preflight isteklerine boş yanıt döndürün.
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     header("HTTP/1.1 200 OK");
     exit();

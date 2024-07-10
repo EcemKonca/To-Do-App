@@ -17,6 +17,6 @@ A Todo application with user authentication and CRUD operations for managing tas
 ## Screenshots
 
 ![Login Page](assets/login.png)
-![Dashboard](assets\dashboard.png)
-![Adding Task](assets\adding_task.png)
+![Dashboard](assets/dashboard.png)
+![Adding Task](assets/adding_task.png)
 

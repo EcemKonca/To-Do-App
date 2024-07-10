@@ -17,7 +17,7 @@ function Login() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username_or_email: usernameOrEmail, password }),
-        credentials: 'include', // Oturum bilgilerini ekle
+        credentials: 'include', 
       });
 
       if (!response.ok) {
